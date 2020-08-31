@@ -1,13 +1,23 @@
 <div id="app">
   <nav class="navbar navbar-expand navbar-dark bg-dark">
     <a href="#" class="navbar-brand">Raphau</a>
-    <ul class="navbar-nav mr-auto" routerLinkActive="active">
+    <ul class="navbar-nav mr-auto" routerLinkActive="active" *ngIf="isLoggedIn">
       <li class="nav-item">
-        <a href="/home" class="nav-link" routerLink="home">Home</a>
+        <a href="/home" class="nav-link" routerLink="home">Companies</a>
       </li>
       <li class="nav-item">
         <a href="/user" class="nav-link" routerLink="user">User</a>
       </li>
+      <li class="nav-item">
+        <a href="/buyoffers" class="nav-link" routerLink="buyoffers">Buy Offers</a>
+      </li>
+      <li class="nav-item">
+        <a href="/selloffers" class="nav-link" routerLink="selloffers">Sell Offers</a>
+      </li>
+      <li class="nav-item">
+        <a href="/resources" class="nav-link" routerLink="resources">Resources</a>
+      </li>
+
     </ul>
 
     <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">

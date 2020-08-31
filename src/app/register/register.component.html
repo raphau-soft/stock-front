@@ -1,6 +1,30 @@
 <div class="col-md-12">
     <div class="card card-container">
         <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+            
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" name="name" [(ngModel)]="form.name" required
+                    minlength="3" maxlength="20" #name="ngModel" />
+
+                <div class="alert-danger" *ngIf="f.submitted && name.invalid">
+                    <div *ngIf="name.errors.required">Name is required</div>
+                    <div *ngIf="name.errors.minlength">Name must be at least 3 characters</div>
+                    <div *ngIf="name.errors.maxlength">Name must be at most 20 characters</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="surname">Surname</label>
+                <input type="text" class="form-control" name="surname" [(ngModel)]="form.surname" required
+                    minlength="3" maxlength="20" #surname="ngModel" />
+
+                <div class="alert-danger" *ngIf="f.submitted && surname.invalid">
+                    <div *ngIf="surname.errors.required">Surname is required</div>
+                    <div *ngIf="surname.errors.minlength">Surname must be at least 3 characters</div>
+                    <div *ngIf="surname.errors.maxlength">Surname must be at most 20 characters</div>
+                </div>
+            </div>
 
             <div class="form-group">
                 <label for="username">Username</label>

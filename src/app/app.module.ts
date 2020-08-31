@@ -13,6 +13,9 @@ import { ProfileComponent } from './profile/profile.component';
 import { BoardUserComponent } from './board-user/board-user.component';
 
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
+import { SellOffersComponent } from './sell-offers/sell-offers.component';
+import { BuyOffersComponent } from './buy-offers/buy-offers.component';
+import { ResourcesComponent } from './resources/resources.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
     RegisterComponent,
     HomeComponent,
     ProfileComponent,
-    BoardUserComponent
+    BoardUserComponent,
+    SellOffersComponent,
+    BuyOffersComponent,
+    ResourcesComponent
   ],
   imports: [
     BrowserModule,

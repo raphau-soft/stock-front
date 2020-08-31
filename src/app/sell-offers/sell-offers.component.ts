@@ -2,18 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_services/user.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-sell-offers',
+  templateUrl: './sell-offers.component.html',
+  styleUrls: ['./sell-offers.component.css']
 })
-export class HomeComponent implements OnInit {
+export class SellOffersComponent implements OnInit {
 
   content: string;
 
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.userService.getCompanies().subscribe(
+    this.userService.getSellOffers().subscribe(
       data => {
         this.content = data;
       },
