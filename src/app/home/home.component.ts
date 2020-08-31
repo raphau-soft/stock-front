@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_services/user.service';
+import { Company } from '../dto/company';
 
 @Component({
   selector: 'app-home',
@@ -8,18 +9,25 @@ import { UserService } from '../_services/user.service';
 })
 export class HomeComponent implements OnInit {
 
-  content: string;
+  form: any = {};
+  companies: Company[];
 
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     this.userService.getCompanies().subscribe(
       data => {
-        this.content = data;
+        this.companies = JSON.parse(data);
       },
       err => {
-        this.content = JSON.parse(err.error).message;
+        this.companies = JSON.parse(err.error).message;
       }
+    );
+  }
+
+  onSubmit(): void{
+    this.userService.postCompany(this.form).subscribe(
+      
     );
   }
 

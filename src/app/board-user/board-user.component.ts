@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_services/user.service';
+import { User } from '../dto/user'
 
 @Component({
   selector: 'app-board-user',
@@ -8,17 +9,18 @@ import { UserService } from '../_services/user.service';
 })
 export class BoardUserComponent implements OnInit {
 
-  content: string;
+  user: User;
 
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     this.userService.getUserBoard().subscribe(
       data => {
-        this.content = data;
+        this.user = JSON.parse(data).user;
+        console.log(this.user);
       },
       err => {
-        this.content = JSON.parse(err.error).message;
+        this.user = JSON.parse(err.error).message;
       }
     )
   }

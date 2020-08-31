@@ -1,8 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
+import { Company } from '../dto/company';
 
 const API_URL = "http://localhost:8080/api/user";
+const httpOptions = {
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
+};
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +34,26 @@ export class UserService {
 
   getResources(): Observable<any> {
     return this.http.get(API_URL + '/resources', { responseType: 'text' });
+  }
+
+  postCompany(company): Observable<any>{
+    return this.http.post('http://localhost:8080/company', {
+      id: 0,
+      name: company.name,
+      amount: company.amount,
+      price: company.price
+    }, httpOptions);
+  }
+
+  postBuyOffer(buyOffer): Observable<any>{
+    console.log(buyOffer);
+    return this.http.post('http://localhost:8080/api/buyOffer', {
+      id: 0,
+      company_id: buyOffer.company.id,
+      maxPrice: buyOffer.maxPrice,
+      amount: buyOffer.amount,
+      dateLimit: buyOffer.date
+    }, httpOptions);
   }
 
 }

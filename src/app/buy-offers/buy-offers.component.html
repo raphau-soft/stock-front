@@ -1,5 +1,52 @@
 <div class="container">
     <header class="jumbotron">
-        <p> {{ content }} </p>
+        <p> {{ buyOffers }} </p>
     </header>
+</div>
+
+
+
+<div class="col-md-12">
+    <div class="card card-container">
+        <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+            <div class="form-group">
+                <label for="company">Company</label>
+                <select class="form-control" name="company" [(ngModel)]="form.company">
+                    <option *ngFor="let company of companies" [ngValue]="company">{{ company.name }}</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="maxPrice">Max Price</label>
+                <input type="text" class="form-control" name="maxPrice" [(ngModel)]="form.maxPrice" required
+                    #maxPrice="ngModel" />
+                <div class="alert alert-danger" role="alert" *ngIf="f.submitted && maxPrice.invalid">
+                    Max price is required
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="amount">Amount</label>
+                <input type="text" class="form-control" name="amount" [(ngModel)]="form.amount" required
+                    minlength="6" #amount="ngModel" />
+                <div class="alert alert-danger" role="alert" *ngIf="f.submitted && amount.invalid">
+                    <div *ngIf="amount.errors.required">Amount is required</div>
+                    <div *ngIf="amount.errors.minlength">Amount must be at least 6 characters</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="date">Date</label>
+                <input matInput [matDatepicker]="picker" placeholder="Pick a date" class="form-control"
+                    name="date" [(ngModel)]="form.date" required #amount="ngModel">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </div>
+        
+            <div class="form-group">
+                <button class="btn btn-primary btn-block">
+                    Add an offer
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
