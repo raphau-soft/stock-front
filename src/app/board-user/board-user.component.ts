@@ -17,7 +17,6 @@ export class BoardUserComponent implements OnInit {
     this.userService.getUserBoard().subscribe(
       data => {
         this.user = JSON.parse(data).user;
-        console.log(this.user);
       },
       err => {
         this.user = JSON.parse(err.error).message;

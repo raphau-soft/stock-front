@@ -1,12 +1,12 @@
 import { Company } from './company';
+import { User } from './user';
 
-export class BuyOffer {
+export class SellOffer{
 
     id: number;
+    user: User;
     company: Company;
-    user: string;
-    maxPrice: number;
     amount: number;
-    dateLimite: Date;
+    dateLimit: Date;
 
 }

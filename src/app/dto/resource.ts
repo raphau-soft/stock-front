@@ -1,6 +1,11 @@
+import { User } from './user'
+import { Company } from './company'
+
 export class Resource {
     // TODO: wszystko
     id: number;
-    name: String;
+    user: User;
+    company: Company;
+    amount: number;
 
 }

@@ -1,7 +1,27 @@
-<div class="container">
-    <header class="jumbotron">
-        <p> {{ sellOffers }} </p>
-    </header>
+<div class="container" *ngIf="sellOffers">
+    <div class="jumbotron" *ngFor="let selloffer of sellOffers">
+        <p>
+            <strong>User: </strong>
+            {{ selloffer.stock.user.username }}
+        </p>
+        <p>
+            <strong>Company: </strong>
+            {{ selloffer.stock.company.name }}
+        </p>
+        <p>
+            <strong>Amount:</strong>
+            {{ selloffer.amount }}
+        </p>
+        <p>
+            <strong>Min price:</strong>
+            {{ selloffer.minPrice }}
+        </p>
+        <p>
+            <strong>Date limit:</strong>
+            {{ selloffer.dateLimit }}
+        </p>
+    </div>
+    
 </div>
 
 <div class="col-md-12">
@@ -26,10 +46,9 @@
             <div class="form-group">
                 <label for="amount">Amount</label>
                 <input type="text" class="form-control" name="amount" [(ngModel)]="form.amount" required
-                    minlength="6" #amount="ngModel" />
+                    #amount="ngModel" />
                 <div class="alert alert-danger" role="alert" *ngIf="f.submitted && amount.invalid">
                     <div *ngIf="amount.errors.required">Amount is required</div>
-                    <div *ngIf="amount.errors.minlength">Amount must be at least 6 characters</div>
                 </div>
             </div>
             <div class="form-group">

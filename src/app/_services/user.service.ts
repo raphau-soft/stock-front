@@ -46,13 +46,22 @@ export class UserService {
   }
 
   postBuyOffer(buyOffer): Observable<any>{
-    console.log(buyOffer);
     return this.http.post('http://localhost:8080/api/buyOffer', {
       id: 0,
       company_id: buyOffer.company.id,
       maxPrice: buyOffer.maxPrice,
       amount: buyOffer.amount,
       dateLimit: buyOffer.date
+    }, httpOptions);
+  }
+
+  postSellOffer(sellOffer): Observable<any>{
+    return this.http.post('http://localhost:8080/api/sellOffer', {
+      id: 0,
+      company_id: sellOffer.company.id,
+      minPrice: sellOffer.minPrice,
+      amount: sellOffer.amount,
+      dateLimit: sellOffer.date
     }, httpOptions);
   }
 

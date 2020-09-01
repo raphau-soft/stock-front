@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_services/user.service';
+import { Resource } from '../dto/resource';
+import { ResourceRate } from '../dto/resourceRate';
 
 @Component({
   selector: 'app-resources',
@@ -8,17 +10,19 @@ import { UserService } from '../_services/user.service';
 })
 export class ResourcesComponent implements OnInit {
 
-  content: string;
+  resources: Resource[];
+  resourceRates: ResourceRate[];
 
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     this.userService.getResources().subscribe(
       data => {
-        this.content = data;
+        this.resources = JSON.parse(data).stock;
+        this.resourceRates = JSON.parse(data).stockRate;
       },
       err => {
-        this.content = JSON.parse(err.error).message;
+        this.resources = JSON.parse(err.error).message;
       }
     );
   }

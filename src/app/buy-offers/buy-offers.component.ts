@@ -20,7 +20,6 @@ export class BuyOffersComponent implements OnInit {
     this.userService.getBuyOffers().subscribe(
       data => {
         this.buyOffers = JSON.parse(data).buyOffers;
-        console.log(this.buyOffers);
       },
       err => {
         this.buyOffers = JSON.parse(err.error).message;
