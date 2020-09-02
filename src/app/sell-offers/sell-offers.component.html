@@ -1,29 +1,3 @@
-<div class="container" *ngIf="sellOffers">
-    <div class="jumbotron" *ngFor="let selloffer of sellOffers">
-        <p>
-            <strong>User: </strong>
-            {{ selloffer.stock.user.username }}
-        </p>
-        <p>
-            <strong>Company: </strong>
-            {{ selloffer.stock.company.name }}
-        </p>
-        <p>
-            <strong>Amount:</strong>
-            {{ selloffer.amount }}
-        </p>
-        <p>
-            <strong>Min price:</strong>
-            {{ selloffer.minPrice }}
-        </p>
-        <p>
-            <strong>Date limit:</strong>
-            {{ selloffer.dateLimit }}
-        </p>
-    </div>
-    
-</div>
-
 <div class="col-md-12">
     <div class="card card-container">
         <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
@@ -64,6 +38,41 @@
                     Add an offer
                 </button>
             </div>
+            <div class="form-group">
+                <div class="alert alert-danger" role="alert" *ngIf="f.submitted && isAddFailed">
+                    Failed: {{errorMessage}}
+                </div>
+            </div>
         </form>
     </div>
 </div>
+
+<div class="container" *ngIf="sellOffers">
+    <div class="jumbotron" *ngFor="let selloffer of sellOffers">
+        <p>
+            <strong>User: </strong>
+            {{ selloffer.stock.user.username }}
+        </p>
+        <p>
+            <strong>Company: </strong>
+            {{ selloffer.stock.company.name }}
+        </p>
+        <p>
+            <strong>Amount:</strong>
+            {{ selloffer.amount }}
+        </p>
+        <p>
+            <strong>Min price:</strong>
+            {{ selloffer.minPrice }}
+        </p>
+        <p>
+            <strong>Date limit:</strong>
+            {{ selloffer.dateLimit.substring(0,10) }}
+        </p>
+        <button (click)="onDelete(selloffer)" style="width:auto;" class="btn btn-primary btn-block">
+            Delete an offer
+        </button>
+    </div>
+    
+</div>
+

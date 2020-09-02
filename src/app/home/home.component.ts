@@ -27,8 +27,12 @@ export class HomeComponent implements OnInit {
 
   onSubmit(): void{
     this.userService.postCompany(this.form).subscribe(
-      
+      () => {this.reloadPage()}
     );
+  }
+
+  reloadPage(){
+    window.location.reload();
   }
 
 }

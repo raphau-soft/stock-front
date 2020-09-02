@@ -36,7 +36,19 @@ export class BuyOffersComponent implements OnInit {
   }
 
   onSubmit(): void{
-    this.userService.postBuyOffer(this.form).subscribe();
+    this.userService.postBuyOffer(this.form).subscribe(
+      () => {this.reloadPage()}
+    );
+  }
+
+  onDelete(buyoffer): void{
+    this.userService.deleteBuyOffer(buyoffer).subscribe(
+      () => {this.reloadPage()}
+    );
+  }
+
+  reloadPage(){
+    window.location.reload();
   }
 
 }

@@ -65,4 +65,12 @@ export class UserService {
     }, httpOptions);
   }
 
+  deleteBuyOffer(buyOffer): Observable<any>{
+    return this.http.delete(API_URL + '/buyOffers/' + buyOffer.id);
+  }
+
+  deleteSellOffer(sellOffer): Observable<any>{
+    return this.http.delete(API_URL + '/sellOffers/' + sellOffer.id);
+  }
+
 }

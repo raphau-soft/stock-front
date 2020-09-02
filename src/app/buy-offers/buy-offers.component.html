@@ -1,30 +1,3 @@
-<div class="container" *ngIf="buyOffers">
-    <div class="jumbotron" *ngFor="let buyoffer of buyOffers">
-        <p>
-            <strong>User: </strong>
-            {{ buyoffer.user.username }}
-        </p>
-        <p>
-            <strong>Company: </strong>
-            {{ buyoffer.company.name }}
-        </p>
-        <p>
-            <strong>Amount:</strong>
-            {{ buyoffer.amount }}
-        </p>
-        <p>
-            <strong>Max price:</strong>
-            {{ buyoffer.maxPrice }}
-        </p>
-        <p>
-            <strong>Date limit:</strong>
-            {{ buyoffer.dateLimit }}
-        </p>
-    </div>
-    
-</div>
-
-
 <div class="col-md-12">
     <div class="card card-container">
         <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
@@ -68,3 +41,33 @@
         </form>
     </div>
 </div>
+<div class="container" *ngIf="buyOffers">
+    <div class="jumbotron" *ngFor="let buyoffer of buyOffers">
+        <p>
+            <strong>User: </strong>
+            {{ buyoffer.user.username }}
+        </p>
+        <p>
+            <strong>Company: </strong>
+            {{ buyoffer.company.name }}
+        </p>
+        <p>
+            <strong>Amount:</strong>
+            {{ buyoffer.amount }}
+        </p>
+        <p>
+            <strong>Max price:</strong>
+            {{ buyoffer.maxPrice }}
+        </p>
+        <p>
+            <strong>Date limit:</strong>
+            {{ buyoffer.dateLimit.substring(0,10) }}
+        </p>
+        <button (click)="onDelete(buyoffer)" style="width:auto;" class="btn btn-primary btn-block">
+            Delete an offer
+        </button>
+    </div>
+    
+</div>
+
+
