@@ -20,6 +20,8 @@ import { SellOffersComponent } from './sell-offers/sell-offers.component';
 import { BuyOffersComponent } from './buy-offers/buy-offers.component';
 import { ResourcesComponent } from './resources/resources.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CompaniesComponent } from './companies/companies.component';
+import { TransactionsComponent } from './transactions/transactions.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BoardUserComponent,
     SellOffersComponent,
     BuyOffersComponent,
-    ResourcesComponent
+    ResourcesComponent,
+    CompaniesComponent,
+    TransactionsComponent
   ],
   imports: [
     MatDatepickerModule,

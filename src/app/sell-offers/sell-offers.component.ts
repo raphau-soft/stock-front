@@ -25,7 +25,7 @@ export class SellOffersComponent implements OnInit {
         this.sellOffers = JSON.parse(data).sellOffers;
       },
       err => {
-        this.sellOffers = JSON.parse(err.error).message;
+        this.sellOffers = err.error.message;
       }
     );
 
@@ -34,7 +34,7 @@ export class SellOffersComponent implements OnInit {
         this.getStocksCompanies(JSON.parse(data).stock);
       },
       err => {
-        this.companies = JSON.parse(err.error).message;
+        this.companies = err.error.message;
       }
     );
   }
@@ -45,7 +45,7 @@ export class SellOffersComponent implements OnInit {
       () => {this.reloadPage()},
       err => {
         this.isAddFailed = true;
-        this.errorMessage = err.error;
+        this.errorMessage = err.error.message;
       }
     );
   }

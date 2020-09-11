@@ -22,7 +22,7 @@ export class ResourcesComponent implements OnInit {
         this.resourceRates = JSON.parse(data).stockRate;
       },
       err => {
-        this.resources = JSON.parse(err.error).message;
+        this.resources = err.error.message;
       }
     );
   }

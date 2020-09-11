@@ -38,6 +38,11 @@
                     Add an offer
                 </button>
             </div>
+            <div class="form-group">
+                <div class="alert alert-danger" role="alert" *ngIf="f.submitted && isAddFailed">
+                    Failed: {{errorMessage}}
+                </div>
+            </div>
         </form>
     </div>
 </div>
@@ -52,6 +57,10 @@
             {{ buyoffer.company.name }}
         </p>
         <p>
+            <strong>Start amount:</strong>
+            {{ buyoffer.startAmount }}
+        </p>
+        <p>
             <strong>Amount:</strong>
             {{ buyoffer.amount }}
         </p>
@@ -62,6 +71,10 @@
         <p>
             <strong>Date limit:</strong>
             {{ buyoffer.dateLimit.substring(0,10) }}
+        </p>
+        <p>
+            <strong>Actual:</strong>
+            {{ buyoffer.actual }}
         </p>
         <button (click)="onDelete(buyoffer)" style="width:auto;" class="btn btn-primary btn-block">
             Delete an offer

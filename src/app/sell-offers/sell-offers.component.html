@@ -58,6 +58,10 @@
             {{ selloffer.stock.company.name }}
         </p>
         <p>
+            <strong>Start amount:</strong>
+            {{ selloffer.startAmount }}
+        </p>
+        <p>
             <strong>Amount:</strong>
             {{ selloffer.amount }}
         </p>
@@ -68,6 +72,10 @@
         <p>
             <strong>Date limit:</strong>
             {{ selloffer.dateLimit.substring(0,10) }}
+        </p>
+        <p>
+            <strong>Actual:</strong>
+            {{ selloffer.actual }}
         </p>
         <button (click)="onDelete(selloffer)" style="width:auto;" class="btn btn-primary btn-block">
             Delete an offer

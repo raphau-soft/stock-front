@@ -6,7 +6,9 @@ export class BuyOffer {
     company: Company;
     user: string;
     maxPrice: number;
+    startAmount: number;
     amount: number;
     dateLimite: Date;
+    actual: boolean;
 
 }

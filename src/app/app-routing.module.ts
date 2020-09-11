@@ -9,15 +9,19 @@ import { BoardUserComponent } from './board-user/board-user.component';
 import { BuyOffersComponent } from './buy-offers/buy-offers.component';
 import { SellOffersComponent } from './sell-offers/sell-offers.component';
 import { ResourcesComponent } from './resources/resources.component';
+import { CompaniesComponent } from './companies/companies.component';
+import { TransactionsComponent } from './transactions/transactions.component';
 
 
 const routes: Routes = [
   { path: 'selloffers', component: SellOffersComponent },
+  { path: 'transactions', component: TransactionsComponent },
   { path: 'buyoffers', component: BuyOffersComponent },
   { path: 'resources', component: ResourcesComponent },
   { path: 'signup', component: RegisterComponent },
   { path: 'signin', component: LoginComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'companies', component: CompaniesComponent },
   { path: 'home', component: HomeComponent },
   { path: 'user', component: BoardUserComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }

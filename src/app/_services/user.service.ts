@@ -36,6 +36,14 @@ export class UserService {
     return this.http.get(API_URL + '/resources', { responseType: 'text' });
   }
 
+  getTransactions(): Observable<any> {
+    return this.http.get("http://localhost:8080/transactions", { responseType: 'text' });
+  }
+
+  getAllResources(): Observable<any> {
+    return this.http.get('http://localhost:8080/stockRates', { responseType: 'text' });
+  }
+
   postCompany(company): Observable<any>{
     return this.http.post('http://localhost:8080/company', {
       id: 0,

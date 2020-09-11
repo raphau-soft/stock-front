@@ -19,7 +19,7 @@ export class BoardUserComponent implements OnInit {
         this.user = JSON.parse(data).user;
       },
       err => {
-        this.user = JSON.parse(err.error).message;
+        // this.user = err.error.message;
       }
     )
   }

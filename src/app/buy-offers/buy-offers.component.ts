@@ -13,6 +13,8 @@ export class BuyOffersComponent implements OnInit {
   form: any = {};
   companies: Company[];
   buyOffers: BuyOffer[];
+  isAddFailed = false;
+  errorMessage: string;
 
   constructor(private userService: UserService) { }
 
@@ -37,7 +39,11 @@ export class BuyOffersComponent implements OnInit {
 
   onSubmit(): void{
     this.userService.postBuyOffer(this.form).subscribe(
-      () => {this.reloadPage()}
+      () => {this.reloadPage()},
+      err => {
+        this.isAddFailed = true;
+        this.errorMessage = err.error.message;
+      }
     );
   }
 
