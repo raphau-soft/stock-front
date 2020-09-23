@@ -17,7 +17,7 @@ export class CompaniesComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getAllResources().subscribe(
       data => {
-        this.resourceRates = JSON.parse(data);
+        this.resourceRates = JSON.parse(data).stockRate;
       },
       err => {
         // this.resourceRates = JSON.parse(err.error).message;

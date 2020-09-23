@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_services/user.service';
+import { Transaction } from '../dto/transactions'
 
 @Component({
   selector: 'app-transactions',
@@ -9,11 +10,11 @@ import { UserService } from '../_services/user.service';
 export class TransactionsComponent implements OnInit {
   constructor(private userService: UserService) { }
 
-  data: any;
+  transactions: Transaction[];
 
   ngOnInit(): void {
       this.userService.getTransactions().subscribe(
-        data => {this.data = data; console.log(data);}
+        data => {this.transactions = JSON.parse(data).transaction;}
       )
   }
 

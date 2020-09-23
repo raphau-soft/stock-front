@@ -29,7 +29,7 @@ export class BuyOffersComponent implements OnInit {
     );
     this.userService.getCompanies().subscribe(
       data => {
-        this.companies = JSON.parse(data);
+        this.companies = JSON.parse(data).company;
       },
       err => {
         this.companies = JSON.parse(err.error).message;
