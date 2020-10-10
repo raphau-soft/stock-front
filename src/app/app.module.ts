@@ -22,6 +22,7 @@ import { ResourcesComponent } from './resources/resources.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CompaniesComponent } from './companies/companies.component';
 import { TransactionsComponent } from './transactions/transactions.component';
+import { TestComponent } from './test/test.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { TransactionsComponent } from './transactions/transactions.component';
     BuyOffersComponent,
     ResourcesComponent,
     CompaniesComponent,
-    TransactionsComponent
+    TransactionsComponent,
+    TestComponent
   ],
   imports: [
     MatDatepickerModule,

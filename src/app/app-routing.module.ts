@@ -11,6 +11,7 @@ import { SellOffersComponent } from './sell-offers/sell-offers.component';
 import { ResourcesComponent } from './resources/resources.component';
 import { CompaniesComponent } from './companies/companies.component';
 import { TransactionsComponent } from './transactions/transactions.component';
+import { TestComponent } from './test/test.component';
 
 
 const routes: Routes = [
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'companies', component: CompaniesComponent },
   { path: 'home', component: HomeComponent },
   { path: 'user', component: BoardUserComponent },
+  { path: 'test', component: TestComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 

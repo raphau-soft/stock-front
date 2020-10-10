@@ -44,6 +44,14 @@ export class UserService {
     return this.http.get('http://localhost:8080/stockRates', { responseType: 'text' });
   }
 
+  getTest(): Observable<any> {
+    return this.http.get("http://localhost:8081/getTest")
+  }
+
+  runTest(): Observable<any> {
+    return this.http.get("http://localhost:8081/runTest")
+  }
+
   postCompany(company): Observable<any>{
     return this.http.post('http://localhost:8080/company', {
       id: 0,
