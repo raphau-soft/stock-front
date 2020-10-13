@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input'
+import { MatSliderModule } from '@angular/material/slider'
+import {MatRadioModule} from '@angular/material/radio'
 
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
@@ -23,6 +25,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CompaniesComponent } from './companies/companies.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { TestComponent } from './test/test.component';
+import { ChartsModule } from 'ng2-charts';
+import { ChartComponent } from './chart/chart.component';
 
 @NgModule({
   declarations: [
@@ -37,17 +41,21 @@ import { TestComponent } from './test/test.component';
     ResourcesComponent,
     CompaniesComponent,
     TransactionsComponent,
-    TestComponent
+    TestComponent,
+    ChartComponent,
   ],
   imports: [
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
+    MatSliderModule,
+    MatRadioModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ChartsModule,
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

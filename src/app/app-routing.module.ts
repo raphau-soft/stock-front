@@ -12,6 +12,7 @@ import { ResourcesComponent } from './resources/resources.component';
 import { CompaniesComponent } from './companies/companies.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { TestComponent } from './test/test.component';
+import { ChartComponent } from './chart/chart.component';
 
 
 const routes: Routes = [
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'user', component: BoardUserComponent },
   { path: 'test', component: TestComponent },
+  { path: 'chart', component: ChartComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 

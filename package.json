@@ -22,7 +22,11 @@
     "@angular/platform-browser": "~10.0.2",
     "@angular/platform-browser-dynamic": "~10.0.2",
     "@angular/router": "~10.0.2",
+    "angular-google-charts": "^1.1.6",
+    "canvasjs": "^1.8.3",
+    "chart.js": "^2.9.3",
     "moment": "^2.27.0",
+    "ng2-charts": "^2.4.2",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
