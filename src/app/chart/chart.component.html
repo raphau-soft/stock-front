@@ -1,11 +1,13 @@
+<mat-form-field appearance="fill" style="margin-top: 50px; left: 50%; transform: translate(-50%, -50%);">
+    <mat-label>Choose test</mat-label>
+    <mat-select (selectionChange)="refreshChart($event.value)">
+        <mat-option *ngFor="let name of names" [value]="name">
+            {{name}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
 <div class="chart-wrapper" style="margin:auto;">
-    <canvas baseChart 
-        [datasets]="lineChartData" 
-        [labels]="lineChartLabels" 
-        [options]="lineChartOptions"
-        [colors]="lineChartColors" 
-        [legend]="lineChartLegend" 
-        [chartType]="lineChartType" 
-        [plugins]="lineChartPlugins">
+    <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+        [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" [plugins]="lineChartPlugins">
     </canvas>
 </div>

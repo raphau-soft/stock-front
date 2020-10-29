@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
-import {MatInputModule} from '@angular/material/input'
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input'
 import { MatSliderModule } from '@angular/material/slider'
-import {MatRadioModule} from '@angular/material/radio'
+import { MatRadioModule } from '@angular/material/radio'
+import { MatSelectModule } from '@angular/material/select';
 
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
@@ -50,6 +51,7 @@ import { ChartComponent } from './chart/chart.component';
     MatInputModule,
     MatSliderModule,
     MatRadioModule,
+    MatSelectModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,

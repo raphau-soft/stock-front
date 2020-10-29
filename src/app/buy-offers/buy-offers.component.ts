@@ -39,7 +39,8 @@ export class BuyOffersComponent implements OnInit {
 
   onSubmit(): void{
     this.userService.postBuyOffer(this.form).subscribe(
-      () => {this.reloadPage()},
+      data => {this.reloadPage();
+      },
       err => {
         this.isAddFailed = true;
         this.errorMessage = err.error.message;

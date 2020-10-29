@@ -45,11 +45,24 @@ export class UserService {
   }
 
   getTest(): Observable<any> {
-    return this.http.get("http://localhost:8081/getTest")
+    return this.http.get("http://localhost:8081/getTest");
   }
 
-  runTest(): Observable<any> {
-    return this.http.get("http://localhost:8081/runTest")
+  runTest(name: string): Observable<any> {
+    return this.http.post("http://localhost:8081/runTest", name, httpOptions);
+  }
+
+  getTrafficConf(): Observable<any> {
+    return this.http.get("http://localhost:8081/getConf", { responseType: 'text' });
+  }
+
+  setTrafficConf(conf): Observable<any>{
+    return this.http.post("http://localhost:8081/setConf", conf, httpOptions);
+  }
+
+  setTestName(name): Observable<any>{
+    console.log(name);
+    return this.http.post("http://localhost:8080/setName", name, httpOptions);
   }
 
   postCompany(company): Observable<any>{
