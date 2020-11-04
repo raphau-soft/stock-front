@@ -48,6 +48,10 @@ export class UserService {
     return this.http.get("http://localhost:8081/getTest");
   }
 
+  getStockTest(): Observable<any> {
+    return this.http.get("http://localhost:8080/test/getTest");
+  }
+
   runTest(name: string): Observable<any> {
     return this.http.post("http://localhost:8081/runTest", name, httpOptions);
   }
@@ -61,8 +65,19 @@ export class UserService {
   }
 
   setTestName(name): Observable<any>{
-    console.log(name);
-    return this.http.post("http://localhost:8080/setName", name, httpOptions);
+    return this.http.post("http://localhost:8080/test/setName", name, httpOptions);
+  }
+
+  cleanTrafficDB(): Observable<any>{
+    return this.http.post("http://localhost:8081/cleanDB", httpOptions);
+  }
+
+  cleanStockTestDB(): Observable<any>{
+    return this.http.post("http://localhost:8080/test/cleanDB", httpOptions);
+  }
+
+  restartStockDB(): Observable<any>{
+    return this.http.post("http://localhost:8080/test/restartDB", httpOptions);
   }
 
   postCompany(company): Observable<any>{

@@ -1,6 +1,5 @@
 <div class="container">
     <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()" novalidate>
-
         <div class="form-group">
             <label for="numberOfUsers">Number of users:</label>
             <input type="number" class="form-control" name="numberOfUsers" [(ngModel)]="form.numberOfUsers" required
@@ -145,8 +144,8 @@
     <form name="testForm" #f1="ngForm" (ngSubmit)="f1.form.valid && onSubmitRun()" novalidate>
         <div class="form-group">
             <label for="test">Test's name</label>
-            <input type="text" class="form-control" name="test" [(ngModel)]="testForm.testName" required
-                minlength="3" #test="ngModel" />
+            <input type="text" class="form-control" name="test" [(ngModel)]="testForm.testName" required minlength="3"
+                #test="ngModel" />
             <div class="alert alert-danger" role="alert" *ngIf="f1.submitted && test.invalid">
                 <div *ngIf="test.errors.required">Test's name is required</div>
                 <div *ngIf="test.errors.minlength">Test's name must be at least 6 characters</div>
@@ -164,7 +163,19 @@
             Test is running...
         </div>
     </form>
-
-
+    <div style="margin-bottom: 50px;">
+        <div style="float: left;">
+            <button (click)="cleanDB()" mat-raised-button color="primary" style="margin-bottom: 5px;margin-right: 5px;">Clean test database</button>
+        </div>
+        <div>
+            <button (click)="restartStockDB()" mat-raised-button color="primary" style="margin-bottom: 5px;">Restart stock exchange database</button>
+        </div>
+        <div class="alert alert-success" *ngIf="isTrafficTestClean&&isStockTestClean">
+            Test's database is clean!
+        </div>
+        <div class="alert alert-success" *ngIf="isDBRestarted">
+            Stock exchange database is restarted!
+        </div>
+    </div>
 
 </div>

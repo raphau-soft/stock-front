@@ -1,13 +1,31 @@
-<mat-form-field appearance="fill" style="margin-top: 50px; left: 50%; transform: translate(-50%, -50%);">
-    <mat-label>Choose test</mat-label>
-    <mat-select (selectionChange)="refreshChart($event.value)">
-        <mat-option *ngFor="let name of names" [value]="name">
-            {{name}}
-        </mat-option>
-    </mat-select>
-</mat-form-field>
-<div class="chart-wrapper" style="margin:auto;">
-    <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
-        [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" [plugins]="lineChartPlugins">
-    </canvas>
+<div class="container">
+    <div>
+        <mat-form-field appearance="fill">
+            <mat-label>Choose test</mat-label>
+            <mat-select (selectionChange)="refreshChart($event.value)">
+                <mat-option *ngFor="let name of names" [value]="name">
+                    {{name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+
+
+    <div class="chart-wrapper" style="margin:auto;">
+        <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+            [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
+            [plugins]="lineChartPlugins">
+        </canvas>
+    </div>
+    <div class="data" *ngIf="dataset" style="margin-bottom: 40px; margin-top: 20px;">
+        Number of requests:
+        <div style="margin-left: 10px;" *ngFor="let test of dataset">
+            {{test.endpoint.endpoint}}: {{test.numberOfRequests}}
+        </div>
+        <div>
+            Transaction's application time: {{chartTestStock.applicationTime}}<br>
+            Transaction's database time: {{chartTestStock.databaseTime}}
+        </div>
+    </div>
 </div>

@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input'
 import { MatSliderModule } from '@angular/material/slider'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
@@ -52,6 +53,7 @@ import { ChartComponent } from './chart/chart.component';
     MatSliderModule,
     MatRadioModule,
     MatSelectModule,
+    MatButtonModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,

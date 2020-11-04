@@ -18,6 +18,9 @@ export class TestComponent implements OnInit {
   isNameTaken = false;
   isTestRunning = false;
   testForm: any = {};
+  isTrafficTestClean = false;
+  isStockTestClean = false;
+  isDBRestarted = false;
 
   value = 30;
   form: any = {
@@ -106,6 +109,21 @@ export class TestComponent implements OnInit {
       err => {
         this.isConfigurationFailed = true;
       }
+    );
+  }
+
+  cleanDB() {
+    this.userService.cleanTrafficDB().subscribe(
+      () => this.isTrafficTestClean = true
+    );
+    this.userService.cleanStockTestDB().subscribe(
+      () => this.isStockTestClean = true
+    );
+  }
+
+  restartStockDB(){
+    this.userService.restartStockDB().subscribe(
+      () => this.isDBRestarted = true
     );
   }
 
