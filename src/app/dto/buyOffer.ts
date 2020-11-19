@@ -8,7 +8,7 @@ export class BuyOffer {
     maxPrice: number;
     startAmount: number;
     amount: number;
-    dateLimite: Date;
+    dateLimit: Date;
     actual: boolean;
 
 }

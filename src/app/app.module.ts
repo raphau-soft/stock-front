@@ -2,13 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatInputModule } from '@angular/material/input'
 import { MatSliderModule } from '@angular/material/slider'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatStepperModule } from '@angular/material/stepper';
-
+import {MatTableModule} from '@angular/material/table';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -51,12 +50,12 @@ import { ChartComponent } from './chart/chart.component';
   imports: [
     MatDatepickerModule,
     MatNativeDateModule,
-    MatInputModule,
     MatSliderModule,
     MatRadioModule,
     MatSelectModule,
     MatButtonModule,
     MatStepperModule,
+    MatTableModule,
     MDBBootstrapModule.forRoot(),
     BrowserModule,
     AppRoutingModule,

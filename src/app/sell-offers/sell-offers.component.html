@@ -1,10 +1,11 @@
 <div class="col-md-12">
-    <div class="card card-container">
+    <div class="card card-container container">
+        <h1 style="text-align: center;">Create a sell offer</h1>
         <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
             <div class="form-group">
                 <label for="company">Company</label>
                 <select class="form-control" name="company" [(ngModel)]="form.company">
-                    <option *ngFor="let company of companies" [ngValue]="company">{{ company.name }}</option>
+                    <option *ngFor="let resource of resourceDisplay" [ngValue]="resource.company">{{ resource.company.name }} - {{resource.rate}}zł ilość {{resource.amount}}</option>
                 </select>
             </div>
 
@@ -47,7 +48,7 @@
     </div>
 </div>
 
-<div class="container" *ngIf="sellOffers">
+<!-- <div class="container" *ngIf="sellOffers">
     <div class="jumbotron" *ngFor="let selloffer of sellOffers">
         <p>
             <strong>User: </strong>
@@ -82,5 +83,5 @@
         </button>
     </div>
     
-</div>
+</div> -->
 

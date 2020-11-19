@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_services/user.service';
-import { Company } from '../dto/company';
-import { SellOffer } from '../dto/sellOffer';
+import { ResourceRate } from '../dto/resourceRate';
 import { Resource } from '../dto/resource';
+import { ResourceDisplay } from '../dto/resourceDisplay';
 
 @Component({
   selector: 'app-sell-offers',
@@ -12,29 +12,32 @@ import { Resource } from '../dto/resource';
 export class SellOffersComponent implements OnInit {
 
   form: any = {};
-  sellOffers: SellOffer[];
-  companies: Company[] = [];
+  stockRates: ResourceRate[];
+  resources: Resource[];
+  resourceDisplay: ResourceDisplay[] = [];
   isAddFailed = false;
   errorMessage: string;
 
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.userService.getSellOffers().subscribe(
-      data => {
-        this.sellOffers = JSON.parse(data).sellOffers;
-      },
-      err => {
-        this.sellOffers = err.error.message;
-      }
-    );
 
     this.userService.getResources().subscribe(
       data => {
-        this.getStocksCompanies(JSON.parse(data).stock);
+        this.stockRates = JSON.parse(data).stockRate;
+        this.resources = JSON.parse(data).stock;
+        for(let i = 0; i < this.stockRates.length; i++){
+          var resource = new Resource();
+          for(let j = 0; j < this.resources.length; j++){
+            if(this.stockRates[i].company.name == this.resources[j].company.name){
+              resource = this.resources[j];
+              break;
+            }
+          }
+          this.resourceDisplay.push(new ResourceDisplay(resource.id, this.stockRates[i].company, this.stockRates[i].rate, resource.amount));
+        }
       },
       err => {
-        this.companies = err.error.message;
       }
     );
   }
@@ -50,20 +53,8 @@ export class SellOffersComponent implements OnInit {
     );
   }
 
-  onDelete(sellOffer): void{
-    this.userService.deleteSellOffer(sellOffer).subscribe(
-      () => {this.reloadPage()}
-    );
-  }
-
   reloadPage(){
     window.location.reload();
-  }
-
-  getStocksCompanies(resources: Resource[]){
-    for(let i = 0; i < resources.length; i++){
-      this.companies.push(resources[i].company);
-    }
   }
 
 }

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Company } from '../dto/company';
 
-const API_URL = "http://13.69.245.230:8080/api/user";
+const API_URL = "http://localhost:8080/api/user";
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
@@ -17,7 +17,7 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getCompanies(): Observable<any> {
-    return this.http.get('http://13.69.245.230:8080/companies', { responseType: 'text' });
+    return this.http.get('http://localhost:8080/companies', { responseType: 'text' });
   }
 
   getUserBoard(): Observable<any> {
@@ -37,51 +37,51 @@ export class UserService {
   }
 
   getTransactions(): Observable<any> {
-    return this.http.get("http://13.69.245.230:8080/transactions", { responseType: 'text' });
+    return this.http.get("http://localhost:8080/transactions", { responseType: 'text' });
   }
 
   getAllResources(): Observable<any> {
-    return this.http.get('http://13.69.245.230:8080/stockRates', { responseType: 'text' });
+    return this.http.get('http://localhost:8080/stockRates', { responseType: 'text' });
   }
 
   getTest(): Observable<any> {
-    return this.http.get("http://13.69.245.230:8081/getTest");
+    return this.http.get("http://localhost:8081/getTest");
   }
 
   getStockTest(): Observable<any> {
-    return this.http.get("http://13.69.245.230:8080/test/getTest");
+    return this.http.get("http://localhost:8080/test/getTest");
   }
 
   runTest(name: string): Observable<any> {
-    return this.http.post("http://13.69.245.230:8081/runTest", name, httpOptions);
+    return this.http.post("http://localhost:8081/runTest", name, httpOptions);
   }
 
   getTrafficConf(): Observable<any> {
-    return this.http.get("http://13.69.245.230:8081/getConf", { responseType: 'text' });
+    return this.http.get("http://localhost:8081/getConf", { responseType: 'text' });
   }
 
   setTrafficConf(conf): Observable<any>{
-    return this.http.post("http://13.69.245.230:8081/setConf", conf, httpOptions);
+    return this.http.post("http://localhost:8081/setConf", conf, httpOptions);
   }
 
   setTestName(name): Observable<any>{
-    return this.http.post("http://13.69.245.230:8080/test/setName", name, httpOptions);
+    return this.http.post("http://localhost:8080/test/setName", name, httpOptions);
   }
 
   cleanTrafficDB(): Observable<any>{
-    return this.http.post("http://13.69.245.230:8081/cleanDB", httpOptions);
+    return this.http.post("http://localhost:8081/cleanDB", httpOptions);
   }
 
   cleanStockTestDB(): Observable<any>{
-    return this.http.post("http://13.69.245.230:8080/test/cleanDB", httpOptions);
+    return this.http.post("http://localhost:8080/test/cleanDB", httpOptions);
   }
 
   restartStockDB(): Observable<any>{
-    return this.http.post("http://13.69.245.230:8080/test/restartDB", httpOptions);
+    return this.http.post("http://localhost:8080/test/restartDB", httpOptions);
   }
 
   postCompany(company): Observable<any>{
-    return this.http.post('http://13.69.245.230:8080/company', {
+    return this.http.post('http://localhost:8080/company', {
       id: 0,
       name: company.name,
       amount: company.amount,
@@ -90,7 +90,7 @@ export class UserService {
   }
 
   postBuyOffer(buyOffer): Observable<any>{
-    return this.http.post('http://13.69.245.230:8080/api/buyOffer', {
+    return this.http.post('http://localhost:8080/api/buyOffer', {
       id: 0,
       company_id: buyOffer.company.id,
       maxPrice: buyOffer.maxPrice,
@@ -100,7 +100,7 @@ export class UserService {
   }
 
   postSellOffer(sellOffer): Observable<any>{
-    return this.http.post('http://13.69.245.230:8080/api/sellOffer', {
+    return this.http.post('http://localhost:8080/api/sellOffer', {
       id: 0,
       company_id: sellOffer.company.id,
       minPrice: sellOffer.minPrice,

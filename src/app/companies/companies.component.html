@@ -1,6 +1,7 @@
-<div class="container">
+<div>
     <div class="col-md-12">
-        <div class="card card-container">
+        <div class="card card-container container">
+            <h1 style="text-align: center;">Create a company</h1>
             <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
                 <div class="form-group">
                     <label for="name">Company name</label>
@@ -35,10 +36,4 @@
         </div>
     </div>
     <br>
-    <strong>Companies:</strong>
-    <ul>
-        <li *ngFor="let resourceRate of resourceRates">
-            {{ resourceRate.company.name }} - {{ resourceRate.rate }}
-        </li>
-    </ul>
 </div>
