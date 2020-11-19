@@ -47,6 +47,7 @@ export class TestComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getTrafficConf().subscribe(
       data => {
+        console.log(data);
         this.conf = JSON.parse(data).conf;
         this.form.stockPlay = this.conf.stockPlay * 100;
         this.form.createCompany = this.conf.createCompany * 100;

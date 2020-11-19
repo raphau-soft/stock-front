@@ -7,6 +7,7 @@ import { MatSliderModule } from '@angular/material/slider'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { MatStepperModule } from '@angular/material/stepper';
 
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
@@ -18,6 +19,7 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BoardUserComponent } from './board-user/board-user.component';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { SellOffersComponent } from './sell-offers/sell-offers.component';
@@ -54,6 +56,8 @@ import { ChartComponent } from './chart/chart.component';
     MatRadioModule,
     MatSelectModule,
     MatButtonModule,
+    MatStepperModule,
+    MDBBootstrapModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     FormsModule,

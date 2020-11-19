@@ -1,7 +1,7 @@
 <div id="app">
-  <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <a href="#" class="navbar-brand">Stock</a>
-    <ul class="navbar-nav mr-auto" routerLinkActive="active" *ngIf="isLoggedIn">
+  <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark bg-primary" [containerInside]="false">
+    <mdb-navbar-brand><a href="#" class="navbar-brand">Stock</a></mdb-navbar-brand>
+    <ul class="nav navbar-nav" routerLinkActive="active" *ngIf="isLoggedIn">
       <li class="nav-item">
         <a href="/companies" class="nav-link" routerLink="companies">Companies</a>
       </li>
@@ -31,7 +31,7 @@
         <a href="/chart" class="nav-link" routerLink="chart">Charts</a>
       </li>
       <li class="nav-item">
-        <a href="/signup" class="nav-link" routerLink="signup">Sign Up</a>
+        <a href="/signup" class="nav-link" routerLink="signup">Register</a>
       </li>
       <li class="nav-item">
         <a href="signin" class="nav-link" routerLink="signin">Login</a>
@@ -52,7 +52,7 @@
         <a href class="nav-link" (click)="logout()">LogOut</a>
       </li>
     </ul>
-  </nav>
+  </mdb-navbar>
   <div class="container">
     <router-outlet></router-outlet>
   </div>
