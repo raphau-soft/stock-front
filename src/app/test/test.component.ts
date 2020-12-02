@@ -57,7 +57,6 @@ export class TestComponent implements OnInit {
         this.form.deleteBuyOffer = this.conf.deleteBuyOffer * 100;
         this.form.deleteSellOffer = this.conf.deleteSellOffer * 100;
         this.form.continueStockPlaying = this.conf.continueStockPlaying * 100;
-        this.form.logout = this.conf.logout * 100;
         this.form.dataCheck = this.conf.dataCheck * 100;
         this.form.checkBuyOffers = this.conf.checkBuyOffers * 100;
         this.form.checkSellOffers = this.conf.checkSellOffers * 100;
@@ -65,6 +64,8 @@ export class TestComponent implements OnInit {
         this.form.continueDataCheck = this.conf.continueDataChecking * 100;
         this.form.numberOfUsers = this.conf.numberOfUsers;
         this.form.timeBetweenRequests = this.conf.timeBetweenRequests;
+        this.form.testTime = this.conf.testTime / 1000;
+        this.form.requestsNumber = this.conf.requestsNumber;
         this.form.strategy = this.strategies[this.conf.strategy];
       }
     );
@@ -74,7 +75,7 @@ export class TestComponent implements OnInit {
     this.isTestRunning = true;
     this.userService.setTestName(this.testForm.testName).subscribe(
       () => {this.userService.runTest(this.testForm.testName).subscribe(
-        () => {this.isNameTaken = false;this.isTestRunning = false;},
+        () => {this.isNameTaken = false;this.isTestRunning = false; },
         () => {this.isNameTaken = true;this.isTestRunning = false;}
       );},
       () => {this.isNameTaken = true;this.isTestRunning = false;}
@@ -97,15 +98,17 @@ export class TestComponent implements OnInit {
     conf.dataCheck = this.form.dataCheck/100;
     conf.deleteBuyOffer = this.form.deleteBuyOffer/100;
     conf.deleteSellOffer = this.form.deleteSellOffer/100;
-    conf.logout = this.form.logout/100;
     conf.numberOfUsers = this.form.numberOfUsers;
     conf.stockPlay = this.form.stockPlay/100;
     conf.strategy = this.strategies.indexOf(this.form.strategy);
     conf.timeBetweenRequests = this.form.timeBetweenRequests;
+    conf.testTime = this.form.testTime * 1000;
+    conf.requestsNumber = this.form.requestsNumber;
     this.userService.setTrafficConf(conf).subscribe(
       data => {
         this.isConfigurationChanged = true;
         this.isConfigurationFailed = false;
+        setTimeout(() => this.isConfigurationChanged = false, 2500)
       },
       err => {
         this.isConfigurationFailed = true;
@@ -115,16 +118,16 @@ export class TestComponent implements OnInit {
 
   cleanDB() {
     this.userService.cleanTrafficDB().subscribe(
-      () => this.isTrafficTestClean = true
+      () => {this.isTrafficTestClean = true; setTimeout(() => this.isTrafficTestClean = false, 2500)},
     );
     this.userService.cleanStockTestDB().subscribe(
-      () => this.isStockTestClean = true
+      () => {this.isStockTestClean = true; setTimeout(() => this.isStockTestClean = false, 2500)},
     );
   }
 
   restartStockDB(){
     this.userService.restartStockDB().subscribe(
-      () => this.isDBRestarted = true
+      () => {this.isDBRestarted = true; setTimeout(() => this.isDBRestarted = false, 2500)},
     );
   }
 

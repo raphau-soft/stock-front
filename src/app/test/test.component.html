@@ -10,13 +10,32 @@
         </div>
 
         <div class="form-group">
-            <label for="timeBetweenRequests">Time between requests:</label>
+            <label for="testTime">Test's time (s):</label>
+            <input type="number" class="form-control" name="testTime" [(ngModel)]="form.testTime"
+                required #testTime="ngModel" />
+            <div class="alert alert-danger" role="alert" *ngIf="f.submitted && testTime.invalid">
+                Test's time is required
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="requestsNumber">User's requests number:</label>
+            <input type="number" class="form-control" name="requestsNumber" [(ngModel)]="form.requestsNumber"
+                required #requestsNumber="ngModel" />
+            <div class="alert alert-danger" role="alert" *ngIf="f.submitted && requestsNumber.invalid">
+                User's requests number is required
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="timeBetweenRequests">Time between requests (ms):</label>
             <input type="number" class="form-control" name="timeBetweenRequests" [(ngModel)]="form.timeBetweenRequests"
                 required #timeBetweenRequests="ngModel" />
             <div class="alert alert-danger" role="alert" *ngIf="f.submitted && timeBetweenRequests.invalid">
                 Time between requests is required
             </div>
         </div>
+
         <div class="form-group">
             <label for="strategy">Strategy:</label><br>
             <mat-radio-group class="tp-radio-group" [(ngModel)]="form.strategy" name="strategy" #strategy="ngModel"
@@ -121,12 +140,6 @@
             {{form.continueDataCheck}}%
         </div>
 
-        <div class="form-group">
-            <label for="logout">Chance for logout:</label>
-            <mat-slider style="width:50%;" name="logout" min="0" max="100" step="1" [(ngModel)]="form.logout"
-                #logout="ngModel"></mat-slider>
-            {{form.logout}}%
-        </div>
         <div class="form-group">
             <button class="btn btn-primary btn-block">
                 Save configuration

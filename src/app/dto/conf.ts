@@ -11,10 +11,10 @@ export class Conf{
     dataCheck: number;
     deleteBuyOffer: number;
     deleteSellOffer: number;
-    logout: number;
     numberOfUsers: number;
     stockPlay: number;
     strategy: number;
     timeBetweenRequests: number;
-
+    testTime: number;
+    requestsNumber: number;
 }
