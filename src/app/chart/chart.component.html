@@ -30,6 +30,18 @@
             [plugins]="lineChartPlugins">
         </canvas>
     </div>
+    <div class="chart-wrapper" style="margin-top: 40px; width: 48%; float: left;" *ngIf="name != ''">
+        <canvas id="chart4" baseChart [datasets]="lineChartData4" [labels]="lineChartLabels4" [options]="lineChartOptions"
+            [colors]="lineChartColors1" [legend]="lineChartLegend" [chartType]="lineChartType1"
+            [plugins]="lineChartPlugins">
+        </canvas>
+    </div>
+    <div class="chart-wrapper" style="margin-top: 40px; width: 48%; float: right;" *ngIf="name != ''">
+        <canvas id="chart5" baseChart [datasets]="lineChartData5" [labels]="lineChartLabels5" [options]="lineChartOptions"
+            [colors]="lineChartColors1" [legend]="lineChartLegend" [chartType]="lineChartType1"
+            [plugins]="lineChartPlugins">
+        </canvas>
+    </div>
 
     <button *ngIf="name != ''" class="btn btn-primary btn-block" (click)="captureScreen()">Download PDF</button>
     <button style="margin-bottom: 20px;" *ngIf="name != ''" class="btn btn-primary btn-block" (click)="exportExcel()">Export to Excel</button>

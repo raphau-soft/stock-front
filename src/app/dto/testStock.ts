@@ -3,4 +3,5 @@ export class TestStock{
     name: string;
     databaseTime: number;
     applicationTime: number;
+    semaphoreWaitTime: number;
 }

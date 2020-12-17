@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Test } from '../dto/test'
+import { CpuData } from '../dto/cpuData'
 import { TestStock } from '../dto/testStock';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
@@ -8,6 +9,7 @@ import { jsPDF } from 'jspdf';
 import { ExcelData } from '../dto/excelData'
 import * as XLSX from 'xlsx'; 
 import * as FileSaver from 'file-saver';
+import { timestamp } from 'rxjs/operators';
 
 @Component({
   selector: 'app-chart',
@@ -20,6 +22,8 @@ export class ChartComponent implements OnInit {
   excelData: ExcelData[];
   testStocks: TestStock[];
   data: Test[];
+  cpuDataStock: CpuData[];
+  cpuDataGenerator: CpuData[];
   names: string[] = [];
   name: string = '';
 
@@ -29,6 +33,8 @@ export class ChartComponent implements OnInit {
     this.userService.getTest().subscribe(
       data => {
         this.data = data.tests;
+        this.cpuDataGenerator = data.cpuData;
+        console.log(this.cpuDataGenerator);
         this.data.forEach(element => {
           if (!(this.names.indexOf(element.name) > -1)) {
             this.names.push(element.name);
@@ -38,7 +44,9 @@ export class ChartComponent implements OnInit {
     )
     this.userService.getStockTest().subscribe(
       data => {
-        this.testStocks = data;
+        this.testStocks = data.tests;
+        this.cpuDataStock = data.cpuData;
+        console.log(this.cpuDataStock);
       },
       err => {
         console.log(err);
@@ -48,16 +56,27 @@ export class ChartComponent implements OnInit {
   lineChartData: ChartDataSets[] = [];
   lineChartData2: ChartDataSets[] = [];
   lineChartData3: ChartDataSets[] = [];
+  lineChartData4: ChartDataSets[] = [];
+  lineChartData5: ChartDataSets[] = [];
   lineChartLabels: Label[] = [];
   lineChartLabels2: Label[] = [];
   lineChartLabels3: Label[] = [];
+  lineChartLabels4: Label[] = [];
+  lineChartLabels5: Label[] = [];
   lineChartOptions = {
     responsive: true,
   };
   lineChartColors: Color[] = [];
+  lineChartColors1: Color[] = [
+    {
+      borderColor: 'black',
+      backgroundColor: 'rgba(255,255,0,0.28)',
+    },
+  ];
   lineChartLegend = true;
   lineChartPlugins = [];
   lineChartType = 'bar';
+  lineChartType1 = 'line';
 
 
   captureScreen() {  
@@ -72,28 +91,30 @@ export class ChartComponent implements OnInit {
     var chart3=document.getElementById("chart3") as HTMLCanvasElement;
     var data3=chart3.toDataURL("image/png");
 
+    var chart4=document.getElementById("chart4") as HTMLCanvasElement;
+    var data4=chart4.toDataURL("image/png");
+
+    var chart5=document.getElementById("chart5") as HTMLCanvasElement;
+    var data5=chart5.toDataURL("image/png");
+
     let width1 = 208;
     let height1 = width1 * chart1.offsetHeight / chart1.offsetWidth;
     let width2 = 150;
     let height2 = width2 * chart2.offsetHeight / chart2.offsetWidth;
     let width3 = 58;
     let height3 = width3 * chart3.offsetHeight / chart3.offsetWidth;
+    let width4 = 105;
+    let height4 = width4 * chart4.offsetHeight / chart4.offsetWidth;
+    let width5 = 105;
+    let height5 = width5 * chart5.offsetHeight / chart5.offsetWidth;
 
     pdf.addImage(data1, 'PNG', 0, 0, width1, height1);
     pdf.addImage(data2, 'PNG', 0, height1, width2, height2);
-    pdf.addImage(data3, 'PNG', 0, height1 + height2, width3, height3);
+    pdf.addImage(data3, 'PNG', width2, height1, width3, height3);
+    pdf.addImage(data4, 'PNG', 0, height1 + height2, width4, height4);
+    pdf.addImage(data5, 'PNG', width4, height1 + height2, width5, height5);
     pdf.save(this.name + ".pdf"); // Generated PDF    
   }  
-
-  // exportToExcel(){
-  //   let element = document.getElementById('excel-table'); 
-  //   const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
-
-  //   const wb: XLSX.WorkBook = XLSX.utils.book_new();
-  //   XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-
-  //   XLSX.writeFile(wb, this.name + ".xlsx");
-  // }
 
   fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
   fileExtension = '.xlsx';
@@ -101,9 +122,9 @@ export class ChartComponent implements OnInit {
   public exportExcel(): void {
     this.excelData = [];
     for(let i = 0; i < this.dataset.length; i++){
-      this.excelData.push(new ExcelData(i + 1, this.dataset[i].endpoint.endpoint, this.dataset[i].apiTime, this.dataset[i].applicationTime, this.dataset[i].databaseTime, this.dataset[i].numberOfRequests));
+      this.excelData.push(new ExcelData(i + 1, this.dataset[i].endpoint.endpoint, this.dataset[i].apiTime, this.dataset[i].applicationTime, this.dataset[i].databaseTime, this.dataset[i].numberOfRequests, 0));
     }
-    this.excelData.push(new ExcelData(this.dataset.length + 1, "transaction", 0, this.chartTestStock.applicationTime, this.chartTestStock.databaseTime, 0));
+    this.excelData.push(new ExcelData(this.dataset.length + 1, "transaction", 0, this.chartTestStock.applicationTime, this.chartTestStock.databaseTime, 0, this.chartTestStock.semaphoreWaitTime));
 
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.excelData);
     const wb: XLSX.WorkBook = { Sheets: { 'data': ws }, SheetNames: ['data'] };
@@ -117,6 +138,7 @@ export class ChartComponent implements OnInit {
   }
   
   refreshChart(name: string) {
+    
     this.name = name;
     this.dataset = [];
     for (var i = 0; i < this.data.length; i++) {
@@ -134,26 +156,77 @@ export class ChartComponent implements OnInit {
         { data: [this.dataset[i].numberOfRequests], label: '' + this.dataset[i].endpoint.endpoint }
       )
     }
-    this.lineChartLabels = ['Api time', 'App time', 'DB time'];
+    this.lineChartLabels = ['Api time (ms)', 'App time (ms)', 'DB time (ms)'];
     this.lineChartLabels2 = ['Number of requests'];
-    this.lineChartLabels3 = ['Aplication time', 'Database time'];
-
+    this.lineChartLabels3 = ['Application time (ms)', 'Database time (ms)', 'Semaphore waiting time (ms)'];
+    
     var testStocksDataSet = this.testStocks.filter(
       test => test.name === this.name
     );
+
     this.chartTestStock = new TestStock();
     this.chartTestStock.name = this.name;
     this.chartTestStock.databaseTime = 0;
     this.chartTestStock.applicationTime = 0;
+    this.chartTestStock.semaphoreWaitTime = 0;
     for (let test of testStocksDataSet) {
       this.chartTestStock.databaseTime += test.databaseTime;
       this.chartTestStock.applicationTime += test.applicationTime;
+      this.chartTestStock.semaphoreWaitTime += test.semaphoreWaitTime;
     }
     this.chartTestStock.databaseTime = Math.round(this.chartTestStock.databaseTime / testStocksDataSet.length);
     this.chartTestStock.applicationTime = Math.round(this.chartTestStock.applicationTime / testStocksDataSet.length);
+    this.chartTestStock.semaphoreWaitTime = Math.round(this.chartTestStock.semaphoreWaitTime / testStocksDataSet.length);
     this.lineChartData3 = [];
     this.lineChartData3.push(
-      { data: [this.chartTestStock.applicationTime, this.chartTestStock.databaseTime], label: 'Transaction'}
+      { data: [this.chartTestStock.applicationTime, this.chartTestStock.databaseTime, this.chartTestStock.semaphoreWaitTime], label: 'Transaction'}
     )
+
+
+
+    this.lineChartData4 = [];
+    var cpuDataG = this.cpuDataGenerator.filter(
+      test => test.name === this.name
+    );
+
+    var temp2 = [];
+    this.lineChartLabels4 = [];
+    for(let i = 0; i < cpuDataG.length; i++){
+      temp2.push(cpuDataG[i].cpuUsage)
+      var date = new Date(cpuDataG[i].timestamp);
+      var hours = date.getHours();
+      var minutes = "0" + date.getMinutes();
+      var seconds = "0" + date.getSeconds();
+      var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+      this.lineChartLabels4.push(formattedTime + '')
+    }
+    
+    this.lineChartData4.push(
+      {data: temp2, label: 'Generator CPU usage'}
+    )
+
+
+
+    this.lineChartData5 = [];
+    var cpuDataS = this.cpuDataStock.filter(
+      test => test.name === this.name
+    );
+    var temp1 = [];
+    this.lineChartLabels5 = [];
+    for(let i = 0; i < cpuDataS.length; i++){
+      temp1.push(cpuDataS[i].cpuUsage)
+      var date = new Date(cpuDataS[i].timestamp);
+      var hours = date.getHours();
+      var minutes = "0" + date.getMinutes();
+      var seconds = "0" + date.getSeconds();
+      var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+      this.lineChartLabels5.push(formattedTime + '')
+    }
+    
+    this.lineChartData5.push(
+      {data: temp1, label: 'Stock CPU usage'}
+    )
+    
+
   }
 }

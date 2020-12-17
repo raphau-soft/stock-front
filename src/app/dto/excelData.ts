@@ -5,14 +5,16 @@ export class ExcelData{
     ApplicationTime: number;
     DatabaseTime: number;
     NumberOfRequests: number;
+    SemaphoreWaitingTime: number;
 
-    constructor(id, endpoint, apiTime, applicationTime, databaseTime, numberOfRequests){
+    constructor(id, endpoint, apiTime, applicationTime, databaseTime, numberOfRequests, semaphoreWaitingTime){
         this.Id = id;
         this.Endpoint = endpoint;
         this.ApiTime = apiTime;
         this.ApplicationTime = applicationTime;
         this.DatabaseTime = databaseTime;
         this.NumberOfRequests = numberOfRequests;
+        this.SemaphoreWaitingTime = semaphoreWaitingTime;
     }
 
 }

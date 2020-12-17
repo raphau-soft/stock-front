@@ -40,14 +40,14 @@ export class TestComponent implements OnInit {
     continueDataCheck: 90
   };
 
-  strategies: string[] = ['Random company, high price', 'Random companies, random prices', 'Random companies, low prices'];
+  strategies: string[] = ['Random company, high price', 'Random companies, random prices'];
+  // , 'Random companies, low prices'
 
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     this.userService.getTrafficConf().subscribe(
       data => {
-        console.log(data);
         this.conf = JSON.parse(data).conf;
         this.form.stockPlay = this.conf.stockPlay * 100;
         this.form.createCompany = this.conf.createCompany * 100;
