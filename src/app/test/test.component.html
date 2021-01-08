@@ -53,14 +53,6 @@
             {{form.stockPlay}}%
         </div>
 
-        <div class="form-group" style="margin-left: 30px;">
-            <label for="createCompany">Chance for creating a company:</label>
-            <mat-slider style="width:50%;" name="createCompany" min="0" max="100" step="1"
-                [(ngModel)]="form.createCompany" #createCompany="ngModel" (input)="onCreateCompChange($event)">
-            </mat-slider>
-            {{form.createCompany}}%
-        </div>
-
         <div class="form-group" style="margin-left: 30px">
             <label for="createBuyOffer">Chance for creating a buy offer:</label>
             <mat-slider style="width:50%;" name="createBuyOffer" min="0" max="100" step="1"
@@ -93,14 +85,6 @@
             {{form.deleteSellOffer}}%
         </div>
 
-        <div class="form-group" style="margin-left: 60px">
-            <label for="continueStockPlaying">Chance for continuing stock playing:</label>
-            <mat-slider style="width:50%;" name="continueStockPlaying" min="0" max="100" step="1"
-                [(ngModel)]="form.continueStockPlaying" #continueStockPlaying="ngModel"
-                (input)="onContStockPlayChange($event)"></mat-slider>
-            {{form.continueStockPlaying}}%
-        </div>
-
         <div class="form-group">
             <label for="dataCheck">Chance for checking data:</label>
             <mat-slider style="width:50%;" name="dataCheck" min="0" max="100" step="1" [(ngModel)]="form.dataCheck"
@@ -130,14 +114,6 @@
                 [(ngModel)]="form.checkUserData" #checkUserData="ngModel" (input)="onUDCheckChange($event)">
             </mat-slider>
             {{form.checkUserData}}%
-        </div>
-
-        <div class="form-group">
-            <label for="continueDataCheck" style="margin-left: 60px">Chance for continuing data checking:</label>
-            <mat-slider style="width:50%;" name="continueDataCheck" min="0" max="100" step="1"
-                [(ngModel)]="form.continueDataCheck" #continueDataCheck="ngModel"
-                (input)="onContDataCheckChange($event)"></mat-slider>
-            {{form.continueDataCheck}}%
         </div>
 
         <div class="form-group">

@@ -6,10 +6,12 @@ import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 import { UserService } from '../_services/user.service';
 import { jsPDF } from 'jspdf';
-import { ExcelData } from '../dto/excelData'
-import * as XLSX from 'xlsx'; 
+import { ExcelData } from '../dto/excelData';
+import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import { timestamp } from 'rxjs/operators';
+import { saveAs } from 'file-saver';
+import { ExcelCPUData } from '../dto/excelCPUData'
 
 @Component({
   selector: 'app-chart',
@@ -20,10 +22,13 @@ export class ChartComponent implements OnInit {
   chartTestStock: TestStock;
   dataset: Test[];
   excelData: ExcelData[];
+  excelCPUData: ExcelCPUData[];
   testStocks: TestStock[];
   data: Test[];
   cpuDataStock: CpuData[];
+  cpuDataS: CpuData[];
   cpuDataGenerator: CpuData[];
+  cpuDataG: CpuData[];
   names: string[] = [];
   name: string = '';
 
@@ -119,26 +124,82 @@ export class ChartComponent implements OnInit {
   fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
   fileExtension = '.xlsx';
 
-  public exportExcel(): void {
+  // public exportExcel(): void {
+  //   this.excelData = [];
+  //   for(let i = 0; i < this.dataset.length; i++){
+  //     this.excelData.push(new ExcelData(i + 1, this.dataset[i].endpoint.endpoint, this.dataset[i].apiTime, this.dataset[i].applicationTime, this.dataset[i].databaseTime, this.dataset[i].numberOfRequests, 0));
+  //   }
+  //   this.excelData.push(new ExcelData(this.dataset.length + 1, "transaction", 0, this.chartTestStock.applicationTime, this.chartTestStock.databaseTime, 0, this.chartTestStock.semaphoreWaitTime));
+
+  //   const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.excelData);
+  //   const wb: XLSX.WorkBook = { Sheets: { 'data': ws }, SheetNames: ['data'] };
+  //   const excelBuffer: any = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+  //   this.saveExcelFile(excelBuffer, this.name);
+  // }
+
+  // private saveExcelFile(buffer: any, fileName: string): void {
+  //   const data: Blob = new Blob([buffer], {type: this.fileType});
+  //   FileSaver.saveAs(data, fileName + this.fileExtension);
+  // }
+
+  public exportExcel() {
     this.excelData = [];
     for(let i = 0; i < this.dataset.length; i++){
       this.excelData.push(new ExcelData(i + 1, this.dataset[i].endpoint.endpoint, this.dataset[i].apiTime, this.dataset[i].applicationTime, this.dataset[i].databaseTime, this.dataset[i].numberOfRequests, 0));
     }
     this.excelData.push(new ExcelData(this.dataset.length + 1, "transaction", 0, this.chartTestStock.applicationTime, this.chartTestStock.databaseTime, 0, this.chartTestStock.semaphoreWaitTime));
 
-    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.excelData);
-    const wb: XLSX.WorkBook = { Sheets: { 'data': ws }, SheetNames: ['data'] };
-    const excelBuffer: any = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-    this.saveExcelFile(excelBuffer, this.name);
-  }
+    const replacer = (key, value) => value === null ? '' : value; // specify how you want to handle null values here
+    const header = Object.keys(this.excelData[0]);
+    let csv = this.excelData.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','));
+    csv.unshift(header.join(','));
+    let csvArray = csv.join('\r\n');
 
-  private saveExcelFile(buffer: any, fileName: string): void {
-    const data: Blob = new Blob([buffer], {type: this.fileType});
-    FileSaver.saveAs(data, fileName + this.fileExtension);
-  }
+    var blob = new Blob([csvArray], {type: 'text/csv' })
+    saveAs(blob, this.name + " Time.csv");
+
+    this.excelCPUData = [];
+    for(let i = 0; i < this.cpuDataG.length; i++){
+      this.excelCPUData.push(new ExcelCPUData(i + 1, this.cpuDataG[i].name, this.cpuDataG[i].timestamp, this.cpuDataG[i].cpuUsage));
+    }
+
+    const replacer1 = (key, value) => value === null ? '' : value; // specify how you want to handle null values here
+    const header1 = Object.keys(this.excelCPUData[0]);
+    let csv1 = this.excelCPUData.map(row => header1.map(fieldName => JSON.stringify(row[fieldName], replacer1)).join(','));
+    csv1.unshift(header1.join(','));
+    let csvArray1 = csv1.join('\r\n');
+
+    var blob = new Blob([csvArray1], {type: 'text/csv' })
+    saveAs(blob, this.name + " GenCPU.csv");
+
+    // count average
+    var stime = this.cpuDataS[0].timestamp;
+    var sCpuUsage = 0;
+    this.excelCPUData = [];
+    for(let i = 0; i < this.cpuDataS.length; i++){
+      this.excelCPUData.push(new ExcelCPUData(i + 1, this.cpuDataS[i].name, this.cpuDataS[i].timestamp, this.cpuDataS[i].cpuUsage));
+    }
+    for(let i = 0; i < this.cpuDataS.length; i++){
+      if(this.cpuDataS[i].timestamp - stime >= 30000 || i == this.cpuDataS.length - 1){
+        var cpu = sCpuUsage/(i+1);
+        stime += 30000;
+        this.excelCPUData.push(new ExcelCPUData(this.cpuDataS.length + i + 1, this.cpuDataS[i].name + " Av", stime, cpu));
+      } else {
+        sCpuUsage += this.cpuDataS[i].cpuUsage;
+      }
+    }
+
+    const replacer2 = (key, value) => value === null ? '' : value; // specify how you want to handle null values here
+    const header2 = Object.keys(this.excelCPUData[0]);
+    let csv2 = this.excelCPUData.map(row => header2.map(fieldName => JSON.stringify(row[fieldName], replacer2)).join(','));
+    csv2.unshift(header2.join(','));
+    let csvArray2 = csv2.join('\r\n');
+
+    var blob = new Blob([csvArray2], {type: 'text/csv' })
+    saveAs(blob, this.name + " StoCPU.csv");
+}
   
   refreshChart(name: string) {
-    
     this.name = name;
     this.dataset = [];
     for (var i = 0; i < this.data.length; i++) {
@@ -174,26 +235,27 @@ export class ChartComponent implements OnInit {
       this.chartTestStock.applicationTime += test.applicationTime;
       this.chartTestStock.semaphoreWaitTime += test.semaphoreWaitTime;
     }
-    this.chartTestStock.databaseTime = Math.round(this.chartTestStock.databaseTime / testStocksDataSet.length);
-    this.chartTestStock.applicationTime = Math.round(this.chartTestStock.applicationTime / testStocksDataSet.length);
-    this.chartTestStock.semaphoreWaitTime = Math.round(this.chartTestStock.semaphoreWaitTime / testStocksDataSet.length);
+    this.chartTestStock.databaseTime = Math.round(this.chartTestStock.databaseTime
+       / testStocksDataSet.length);
+    this.chartTestStock.applicationTime = Math.round(this.chartTestStock.applicationTime
+       / testStocksDataSet.length);
+    this.chartTestStock.semaphoreWaitTime = Math.round(this.chartTestStock.semaphoreWaitTime
+       / testStocksDataSet.length);
     this.lineChartData3 = [];
     this.lineChartData3.push(
       { data: [this.chartTestStock.applicationTime, this.chartTestStock.databaseTime, this.chartTestStock.semaphoreWaitTime], label: 'Transaction'}
     )
 
-
-
     this.lineChartData4 = [];
-    var cpuDataG = this.cpuDataGenerator.filter(
+    this.cpuDataG = this.cpuDataGenerator.filter(
       test => test.name === this.name
     );
 
     var temp2 = [];
     this.lineChartLabels4 = [];
-    for(let i = 0; i < cpuDataG.length; i++){
-      temp2.push(cpuDataG[i].cpuUsage)
-      var date = new Date(cpuDataG[i].timestamp);
+    for(let i = 0; i < this.cpuDataG.length; i++){
+      temp2.push(this.cpuDataG[i].cpuUsage)
+      var date = new Date(this.cpuDataG[i].timestamp);
       var hours = date.getHours();
       var minutes = "0" + date.getMinutes();
       var seconds = "0" + date.getSeconds();
@@ -208,14 +270,14 @@ export class ChartComponent implements OnInit {
 
 
     this.lineChartData5 = [];
-    var cpuDataS = this.cpuDataStock.filter(
+    this.cpuDataS = this.cpuDataStock.filter(
       test => test.name === this.name
     );
     var temp1 = [];
     this.lineChartLabels5 = [];
-    for(let i = 0; i < cpuDataS.length; i++){
-      temp1.push(cpuDataS[i].cpuUsage)
-      var date = new Date(cpuDataS[i].timestamp);
+    for(let i = 0; i < this.cpuDataS.length; i++){
+      temp1.push(this.cpuDataS[i].cpuUsage)
+      var date = new Date(this.cpuDataS[i].timestamp);
       var hours = date.getHours();
       var minutes = "0" + date.getMinutes();
       var seconds = "0" + date.getSeconds();

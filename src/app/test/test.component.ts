@@ -25,19 +25,16 @@ export class TestComponent implements OnInit {
   value = 30;
   form: any = {
     stockPlay: 90,
-    createCompany: 2,
     strategy: 'Random company, high price',
-    createBuyOffer: 44,
-    createSellOffer: 44,
+    createBuyOffer: 45,
+    createSellOffer: 45,
     deleteBuyOffer: 5,
     deleteSellOffer: 5,
-    continueStockPlaying: 90,
     logout: 10,
     dataCheck: 10,
     checkBuyOffers: 33,
     checkSellOffers: 33,
     checkUserData: 34,
-    continueDataCheck: 90
   };
 
   strategies: string[] = ['Random company, high price', 'Random companies, random prices'];
@@ -50,18 +47,15 @@ export class TestComponent implements OnInit {
       data => {
         this.conf = JSON.parse(data).conf;
         this.form.stockPlay = this.conf.stockPlay * 100;
-        this.form.createCompany = this.conf.createCompany * 100;
         this.form.strategy = this.conf.strategy;
         this.form.createBuyOffer = this.conf.createBuyOffer * 100;
         this.form.createSellOffer = this.conf.createSellOffer * 100;
         this.form.deleteBuyOffer = this.conf.deleteBuyOffer * 100;
         this.form.deleteSellOffer = this.conf.deleteSellOffer * 100;
-        this.form.continueStockPlaying = this.conf.continueStockPlaying * 100;
         this.form.dataCheck = this.conf.dataCheck * 100;
         this.form.checkBuyOffers = this.conf.checkBuyOffers * 100;
         this.form.checkSellOffers = this.conf.checkSellOffers * 100;
         this.form.checkUserData = this.conf.checkUserData * 100;
-        this.form.continueDataCheck = this.conf.continueDataChecking * 100;
         this.form.numberOfUsers = this.conf.numberOfUsers;
         this.form.timeBetweenRequests = this.conf.timeBetweenRequests;
         this.form.testTime = this.conf.testTime / 1000;
